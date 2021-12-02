@@ -34,12 +34,16 @@ directions = {
         }
 
 pos = Vector()
+aim = Vector()
 
 for l in lines:
     words = l.split()
     direction = words[0]
     value = int(words[1])
-    pos = pos.plus(directions.get(words[0]).times(value))
+    if (direction == "up" or  direction == "down"):
+        aim = aim.plus(directions.get(words[0]).times(value))
+    elif (direction == "forward"):
+        pos = pos.plus(aim.times(value)).plus(directions.get(direction).times(value))
 
 print(pos)
 print("Result is pos {0}: {1}".format(pos, pos.x * pos.y))
