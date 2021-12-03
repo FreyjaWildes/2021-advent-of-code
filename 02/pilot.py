@@ -22,9 +22,6 @@ class Vector:
         res = Vector(self.x * value, self.y * value)
         return res
 
-input = open("input.txt", 'r')
-lines = input.readlines()
-
 forward = [1,0]
 depth = [0,1]
 directions = {
@@ -36,16 +33,15 @@ directions = {
 pos = Vector()
 aim = Vector()
 
-for l in lines:
-    words = l.split()
-    direction = words[0]
-    value = int(words[1])
-    if (direction == "up" or  direction == "down"):
-        aim = aim.plus(directions.get(words[0]).times(value))
-    elif (direction == "forward"):
-        pos = pos.plus(aim.times(value)).plus(directions.get(direction).times(value))
+with open("input.txt", 'r') as input:
+    for l in input:
+        words = l.split()
+        direction = words[0]
+        value = int(words[1])
+        if (direction == "up" or  direction == "down"):
+            aim = aim.plus(directions.get(words[0]).times(value))
+        elif (direction == "forward"):
+            pos = pos.plus(aim.times(value)).plus(directions.get(direction).times(value))
 
 print(pos)
-print("Result is pos {0}: {1}".format(pos, pos.x * pos.y))
-
-input.close()
+print(f'Result is pos {pos}: {pos.x * pos.y}')
